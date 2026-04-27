@@ -1,0 +1,118 @@
+{
+    "LO": {
+        "name": "LOT Polish Airlines",
+        "source": "AMADEUS_API_EXPORT",
+        "tariffs": [
+            {
+                "name": "Amadeus Economy Standard (Checked)",
+                "is_cabin": false,
+                "checked_kg": 23,
+                "dims": "158x0x0"
+            }
+        ]
+    },
+    "LH": {
+        "name": "Lufthansa",
+        "source": "AMADEUS_API_EXPORT",
+        "tariffs": []
+    },
+    "AF": {
+        "name": "Air France",
+        "source": "AMADEUS_API_EXPORT",
+        "tariffs": [
+            {
+                "name": "Amadeus Economy Standard (Checked)",
+                "is_cabin": false,
+                "checked_kg": 23,
+                "dims": "158x0x0"
+            }
+        ]
+    },
+    "KL": {
+        "name": "KLM",
+        "source": "AMADEUS_API_EXPORT",
+        "tariffs": [
+            {
+                "name": "Amadeus Economy Standard (Checked)",
+                "is_cabin": false,
+                "checked_kg": 23,
+                "dims": "158x0x0"
+            }
+        ]
+    },
+    "LX": {
+        "name": "Swiss",
+        "source": "AMADEUS_API_EXPORT",
+        "tariffs": []
+    },
+    "OS": {
+        "name": "Austrian",
+        "source": "AMADEUS_API_EXPORT",
+        "tariffs": []
+    },
+    "SK": {
+        "name": "SAS",
+        "source": "AMADEUS_API_EXPORT",
+        "tariffs": []
+    },
+    "AY": {
+        "name": "Finnair",
+        "source": "AMADEUS_API_EXPORT",
+        "tariffs": []
+    },
+    "IB": {
+        "name": "Iberia",
+        "source": "AMADEUS_API_EXPORT",
+        "tariffs": []
+    },
+    "TP": {
+        "name": "TAP Air Portugal",
+        "source": "AMADEUS_API_EXPORT",
+        "tariffs": []
+    },
+    "AZ": {
+        "name": "ITA Airways",
+        "source": "AMADEUS_API_EXPORT",
+        "tariffs": []
+    },
+    "QR": {
+        "name": "Qatar Airways",
+        "source": "AMADEUS_API_EXPORT",
+        "tariffs": [
+            {
+                "name": "Amadeus Economy Standard (Cabin)",
+                "is_cabin": true,
+                "cabin_kg": 7,
+                "dims": "0x0x0"
+            },
+            {
+                "name": "Amadeus Economy Standard (Checked)",
+                "is_cabin": false,
+                "checked_kg": 30,
+                "dims": "158x0x0"
+            }
+        ]
+    },
+    "EK": {
+        "name": "Emirates",
+        "source": "AMADEUS_API_EXPORT",
+        "tariffs": [
+            {
+                "name": "Amadeus Economy Standard (Checked)",
+                "is_cabin": false,
+                "checked_kg": 30,
+                "dims": "158x0x0"
+            }
+        ]
+    },
+    "UA": {
+        "name": "United",
+        "source": "AMADEUS_API_EXPORT",
+        "tariffs": []
+    },
+    "DY": {
+        "name": "Norwegian",
+        "source": "AMADEUS_API_EXPORT",
+        "tariffs": []
+    }
+}

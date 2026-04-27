@@ -1,0 +1,824 @@
+{
+    "FR": {
+        "name": "Ryanair",
+        "tariffs": [
+        {
+            "name": "Underseat Bag", 
+            "cabin_kg": 0, 
+            "checked_kg": 0, 
+            "dims_string": "40x30x20 cm",
+            "is_cabin": true,
+            "warning_msg": "Musi się zmieścić pod poprzedzającym fotelem!"
+        },
+        {
+            "name": "Overhead Locker Bag", 
+            "cabin_kg": 10, 
+            "checked_kg": 0,
+            "dims_string":"55x40x20 cm", 
+            "is_cabin": true
+        },
+        {
+            "name": "Small Checked Bag", 
+            "cabin_kg": 0, 
+            "checked_kg": 10, 
+            "dims_string": "120x120x80 cm",
+            "is_cabin": false
+        },
+        {
+            "name": "Checked Bag", 
+            "cabin_kg": 0, 
+            "checked_kg": 20, 
+            "dims_string": "120x120x80 cm",
+            "is_cabin": false
+        },
+        {
+
+            "name": "Bigger Checked Bag",
+            "cabin_kg": 0,
+            "checked_kg": 23,
+            "dims_string": "120x120x80 cm",
+            "is_cabin": false
+
+        }
+            ]
+    },
+    "W6": {
+        "name": "Wizz Air",
+        "tariffs": [
+             {
+            "name": "Underseat Bag", 
+            "cabin_kg": 0, 
+            "checked_kg": 0, 
+            "dims_string": "40x30x20 cm",
+            "is_cabin": true,
+            "warning_msg": "Musi się zmieścić pod poprzedzającym fotelem!"
+        }  ,
+        {
+            "name": "Overhead Locker Bag", 
+            "cabin_kg": 10, 
+            "checked_kg": 0,
+            "dims_string":"55x40x23 cm", 
+            "is_cabin": true
+        },
+         {
+            "name": "Checked Bag", 
+            "cabin_kg": 0, 
+            "checked_kg": 20, 
+            "dims_string": "149x119x171 cm",
+            "is_cabin": false
+        },
+        {
+            "name": "Bigger Checked Bag", 
+            "cabin_kg": 0, 
+            "checked_kg": 26, 
+            "dims_string": "149x119x171 cm",
+            "is_cabin": false
+        },
+        {
+            "name": "Heavy Checked Bag",
+            "cabin_kg": 0,
+            "checked_kg": 32,
+            "dims_string": "149x119x171 cm",
+            "is_cabin": false
+        }
+    ]
+    },
+    "LO": {
+        "name": "LOT Polish Airlines",
+        "tariffs": [
+            {
+            "name": "Underseat Bag", 
+            "cabin_kg": 8, 
+            "checked_kg": 0, 
+            "dims_string": "40x55x23 cm",
+            "is_cabin": true,
+            "warning_msg": "Musi się zmieścić pod poprzedzającym fotelem albo w schowku nad głową!"
+        } ,
+         {
+            "name": "Checked Bag", 
+            "cabin_kg": 0, 
+            "checked_kg": 23, 
+            "dims_string": "50x75x30 cm",
+            "is_cabin": false
+        },
+        {
+            "name": "Personal Item",
+            "cabin_kg": 2,
+            "checked_kg": 0,
+            "dims_string": "40x35x12 cm",
+            "is_cabin": true,
+            "warning_msg": "Musi się zmieścić pod poprzedzającym fotelem!"
+
+        },
+        {
+            "name": "Business underseat Bag",
+            "cabin_kg": 9,
+            "checked_kg": 0,
+            "dims_string": "40x55x23 cm",
+            "is_cabin": true,
+            "warning_msg": "Musi się w schowku nad głową!"
+        },
+        {
+            "name": "Business Checked Bag",
+            "cabin_kg": 0,
+            "checked_kg": 32,
+            "dims_string": "50x75x30 cm",
+            "is_cabin": false
+        },
+        {
+            "name": "Business personal Item",
+            "cabin_kg": 2,
+            "checked_kg": 0,
+            "dims_string": "40x35x12 cm",
+            "is_cabin": true,
+            "warning_msg": "Musi się zmieścić pod poprzedzającym fotelem!"
+        }
+        ]
+    },
+    "LH": {
+        "name": "Lufthansa",
+        "tariffs": [
+            {
+            "name": "Underseat Bag", 
+            "cabin_kg": 8, 
+            "checked_kg": 0, 
+            "dims_string": "55x40x23 cm",
+            "is_cabin": true,
+            "warning_msg": "Musi się zmieścić pod poprzedzającym fotelem albo w schowku nad głową!"
+        },
+        {
+            "name": "Personal Item",
+            "cabin_kg": 0,
+            "checked_kg": 0,
+            "dims_string": "40x30x15 cm",
+            "is_cabin": true
+        },
+        {
+            "name": "Checked Bag", 
+            "cabin_kg": 0, 
+            "checked_kg": 23, 
+            "is_cabin": false,
+            "warning_msg": "Suma wszystkich wymiarów bagażu (wysokość + szerokość + głębokość) nie może przekroczyć 158 cm!"
+        },
+        {
+            "name": "Business Checked Bag", 
+            "cabin_kg": 0, 
+            "checked_kg": 32,
+            "is_cabin": false,
+            "warning_msg": "Suma wszystkich wymiarów bagażu (wysokość + szerokość + głębokość) nie może przekroczyć 158 cm!"
+        }
+        ]
+    },
+    "BA": {
+        "name": "British Airways",
+        "tariffs": [
+             {
+            "name": "Underseat Bag", 
+            "cabin_kg": 0, 
+            "checked_kg": 0, 
+            "dims_string": "40x30x15 cm",
+            "is_cabin": true,
+            "warning_msg": "Musi się zmieścić pod poprzedzającym fotelem! Może zawierać niezbędne rzeczy takie jak leki, paszporty, telefony komórkowe i inne urządzenia elektroniczne "
+        },
+        {
+            "name": "Overhead Locker Bag", 
+            "cabin_kg": 0, 
+            "checked_kg": 0, 
+            "dims_string": "56x45x25 cm",
+            "is_cabin": true,
+            "warning_msg":"Musisz być w stanie samodzielnie umieścić bagaż podręczny w schowku nad głową! Nie umieszczaj w nim żadnych kosztowności, elektroniki lub niezbędnych leków."        
+        },
+        {
+            "name": "Checked Bag", 
+            "cabin_kg": 0, 
+            "checked_kg": 23, 
+            "dims_string": "90x75x43 cm",
+            "is_cabin": false
+        },
+        {
+            "name": "Business Checked Bag", 
+            "cabin_kg": 0, 
+            "checked_kg": 32, 
+            "dims_string": "90x75x43 cm",
+            "is_cabin": false
+        }
+        ]
+    },
+    "AF": {
+        "name": "Air France",
+        "tariffs": [
+            {
+            "name": "Underseat Bag", 
+            "cabin_kg": 0, 
+            "checked_kg": 0, 
+            "dims_string": "40x30x15 cm",
+            "is_cabin": true,
+            "warning_msg": "Łączna masa wszystkich bagaży podręcznych nie może przekraczać 12 kg!"
+        },
+        {
+            "name": "Overhead Locker Bag", 
+            "cabin_kg": 0, 
+            "checked_kg": 0, 
+            "dims_string": "55x35x25 cm",
+            "is_cabin": true,
+            "warning_msg": "Łączna masa wszystkich bagaży podręcznych nie może przekraczać 12 kg!"
+        },
+        {
+            "name": "Checked Bag", 
+            "cabin_kg": 0, 
+            "checked_kg": 23, 
+            "is_cabin": false,
+            "warning_msg": "Suma wszystkich wymiarów bagażu (wysokość + szerokość + głębokość) nie może przekroczyć 158 cm!"
+        },
+        {
+            "name": "Business Checked Bag", 
+            "cabin_kg": 0, 
+            "checked_kg": 32, 
+            "is_cabin": false,
+            "warning_msg": "Suma wszystkich wymiarów bagażu (wysokość + szerokość + głębokość) nie może przekroczyć 158 cm!"
+
+        }
+        ]
+    },
+    "KL": {
+        "name": "KLM",
+        "tariffs": [
+            {
+            "name": "Underseat Bag", 
+            "cabin_kg": 0, 
+            "checked_kg": 0, 
+            "dims_string": "40x30x15 cm",
+            "is_cabin": true,
+            "warning_msg": "Łączna masa wszystkich bagaży podręcznych nie może przekraczać 12 kg (dla klasy business 18 kg)!"
+        },
+        {
+            "name": "Overhead Locker Bag", 
+            "cabin_kg": 0, 
+            "checked_kg": 0, 
+            "dims_string": "55x35x25 cm",
+            "is_cabin": true,
+            "warning_msg": "Łączna masa wszystkich bagaży podręcznych nie może przekraczać 12 kg (dla klasy business 18 kg)!"
+        },
+        {
+            "name": "Checked Bag", 
+            "cabin_kg": 0, 
+            "checked_kg": 23, 
+            "is_cabin": false,
+            "warning_msg": "Suma wszystkich wymiarów bagażu (wysokość + szerokość + głębokość) nie może przekroczyć 158 cm!"
+        },
+        {
+            "name": "Business Checked Bag", 
+            "cabin_kg": 0, 
+            "checked_kg": 32, 
+            "is_cabin": false,
+            "warning_msg": "Suma wszystkich wymiarów bagażu (wysokość + szerokość + głębokość) nie może przekroczyć 158 cm!"
+
+        }
+     ]
+    },
+    "U2": {
+        "name": "EasyJet",
+        "tariffs": [
+            {
+            "name": "Underseat Bag", 
+            "cabin_kg": 0, 
+            "checked_kg": 0, 
+            "dims_string": "45x36x20 cm",
+            "is_cabin": true,
+            "warning_msg": "Musi się zmieścić pod poprzedzającym fotelem!"
+
+
+        },
+        {
+            "name": "Overhead Locker Bag", 
+            "cabin_kg": 0,
+            "checked_kg": 0,
+            "dims_string": "56x45x25 cm",
+            "is_cabin": true,
+            "warning_msg":"Musisz być w stanie samodzielnie umieścić bagaż podręczny w schowku nad głową!"        
+        },
+        {
+            "name": "Checked Bag L", 
+            "cabin_kg": 0, 
+            "checked_kg": 15, 
+            "is_cabin": false
+        },
+        {
+            "name": "Checked Bag XL", 
+            "cabin_kg": 0, 
+            "checked_kg": 23, 
+            "is_cabin": false
+        },
+        {
+            "name": "Checked Bag XXL", 
+            "cabin_kg": 0, 
+            "checked_kg": 26, 
+            "is_cabin": false
+        },
+        {
+            "name": "Checked Bag XXXL", 
+            "cabin_kg": 0, 
+            "checked_kg": 29, 
+            "is_cabin": false
+        },
+        {
+            "name": "Checked Bag XXXXL", 
+            "cabin_kg": 0, 
+            "checked_kg": 32, 
+            "is_cabin": false
+        }
+        ]
+    },
+    "QR": {
+        "name": "Qatar Airways",
+        "tariffs": [
+            {
+            "name": "Underseat Bag", 
+            "cabin_kg": 7, 
+            "checked_kg": 0, 
+            "dims_string": "50x37x25 cm",
+            "is_cabin": true,
+            "warning_msg": "Musi się zmieścić pod poprzedzającym fotelem!"
+        },
+        {
+            "name": "Underseat Bag", 
+            "cabin_kg": 10, 
+            "checked_kg": 0, 
+            "dims_string": "50x37x25 cm",
+            "is_cabin": true,
+            "warning_msg": "Musi się zmieścić pod poprzedzającym fotelem!"
+        },
+         {
+            "name": "Checked Bag", 
+            "cabin_kg": 0, 
+            "checked_kg": 20, 
+            "is_cabin": false,
+            "warning_msg": "Łączne wymiary bagażu rejestrowanego na trasach do/z Afryki lub Ameryki Płn. i Płd. nie powinny przekroczyć 158 cm (wysokość + szerokość + głębokość bagażu). Na innych trasach* łączne wymiary nie powinny przekroczyć 300 cm."
+        },
+        
+         {
+            "name": "Checked Bag", 
+            "cabin_kg": 0, 
+            "checked_kg": 23, 
+            "is_cabin": false,
+            "warning_msg": "Łączne wymiary bagażu rejestrowanego na trasach do/z Afryki lub Ameryki Płn. i Płd. nie powinny przekroczyć 158 cm (wysokość + szerokość + głębokość bagażu). Na innych trasach* łączne wymiary nie powinny przekroczyć 300 cm."
+        },
+        
+        {
+            "name": "Checked Bag", 
+            "cabin_kg": 0, 
+            "checked_kg": 25, 
+            "is_cabin": false,
+            "warning_msg": "Łączne wymiary bagażu rejestrowanego na trasach do/z Afryki lub Ameryki Płn. i Płd. nie powinny przekroczyć 158 cm (wysokość + szerokość + głębokość bagażu). Na innych trasach* łączne wymiary nie powinny przekroczyć 300 cm."
+        },
+        
+         {
+            "name": "Checked Bag", 
+            "cabin_kg": 0, 
+            "checked_kg": 30, 
+            "is_cabin": false,
+            "warning_msg": "Łączne wymiary bagażu rejestrowanego na trasach do/z Afryki lub Ameryki Płn. i Płd. nie powinny przekroczyć 158 cm (wysokość + szerokość + głębokość bagażu). Na innych trasach* łączne wymiary nie powinny przekroczyć 300 cm."
+
+        },
+        
+         {
+            "name": "Checked Bag", 
+            "cabin_kg": 0, 
+            "checked_kg": 35, 
+            "is_cabin": false,
+            "warning_msg": "Łączne wymiary bagażu rejestrowanego na trasach do/z Afryki lub Ameryki Płn. i Płd. nie powinny przekroczyć 158 cm (wysokość + szerokość + głębokość bagażu). Na innych trasach* łączne wymiary nie powinny przekroczyć 300 cm."
+
+        },
+         {
+            "name": "Business Underseat Bags", 
+            "cabin_kg": 15, 
+            "checked_kg": 0, 
+            "dims_string": "50x37x25 cm",
+            "is_cabin": true,
+            "warning_msg": "Limit 15 kg dotyczy sumy mas obydwu bagaży podręcznych !"
+        },
+        {
+            "name": "Business Registered Bag", 
+            "cabin_kg": 32, 
+            "checked_kg": 0, 
+            "is_cabin": true,
+            "warning_msg": "Łączne wymiary bagażu rejestrowanego na trasach do/z Afryki lub Ameryki Płn. i Płd. nie powinny przekroczyć 158 cm (wysokość + szerokość + głębokość bagażu). Na innych trasach* łączne wymiary nie powinny przekroczyć 300 cm."
+        },
+        {
+            "name": "Business Registered Big Bag", 
+            "cabin_kg": 40, 
+            "checked_kg": 0, 
+            "is_cabin": true
+        }
+    ]
+    },
+    "EK": {
+        "name": "Emirates",
+        "tariffs": [
+             {
+            "name": "Underseat Bag", 
+            "cabin_kg": 7, 
+            "checked_kg": 0, 
+            "dims_string": "55x38x22 cm",
+            "is_cabin": true,
+            "warning_msg": "Musi się zmieścić pod poprzedzającym fotelem!"
+        },
+        {
+            "name": "Premium Underseat Bag", 
+            "cabin_kg": 10, 
+            "checked_kg": 0, 
+            "dims_string": "55x38x22 cm",
+            "is_cabin": true,
+            "warning_msg": "Musi się zmieścić pod poprzedzającym fotelem!"
+        },
+             {
+            "name": "Checked Bag", 
+            "cabin_kg": 0, 
+            "checked_kg": 23, 
+            "is_cabin": false
+        },
+        {
+            "name": "Checked Bag XL", 
+            "cabin_kg": 0, 
+            "checked_kg": 30, 
+            "is_cabin": false
+        },
+        {
+            "name": "Business Checked Bag", 
+            "cabin_kg": 0, 
+            "checked_kg": 32, 
+            "is_cabin": false
+        },
+        {
+            "name": "Premium Checked Bag", 
+            "cabin_kg": 0, 
+            "checked_kg": 35, 
+            "is_cabin": false
+        },
+        {
+            "name": "Saver Checked Bag", 
+            "cabin_kg": 0, 
+            "checked_kg": 40, 
+            "is_cabin": false
+        },
+        {
+            "name": "First Class Checked Bag", 
+            "cabin_kg": 0, 
+            "checked_kg": 50, 
+            "is_cabin": false
+        }
+    ]
+    },
+    "LX": {
+        "name": "Swiss",
+        "tariffs": [
+                {
+            "name": "Underseat Bag", 
+            "cabin_kg": 8, 
+            "checked_kg": 0, 
+            "dims_string": "55x40x23 cm",
+            "is_cabin": true,
+            "warning_msg": "Musi się zmieścić pod poprzedzającym fotelem!"
+        },
+        {
+            "name": "Personal Item", 
+            "cabin_kg": 0, 
+            "checked_kg": 0, 
+            "dims_string": "40x30x15 cm",
+            "is_cabin": true
+        },
+            {
+            "name": "Checked Bag", 
+            "cabin_kg": 0, 
+            "checked_kg": 23, 
+            "is_cabin": false,
+            "warning_msg": "Suma wszystkich wymiarów bagażu (wysokość + szerokość + głębokość) nie może przekroczyć 158 cm!"
+
+        },
+        {
+            "name": "Business Checked Bag", 
+            "cabin_kg": 0, 
+            "checked_kg": 32, 
+            "is_cabin": false,
+            "warning_msg": "Suma wszystkich wymiarów bagażu (wysokość + szerokość + głębokość) nie może przekroczyć 158 cm!"
+
+        }
+        ]
+    },
+    "OS": {
+        "name": "Austrian",
+        "tariffs": [
+             {
+            "name": "Underseat Bag", 
+            "cabin_kg": 8, 
+            "checked_kg": 0, 
+            "dims_string": "55x40x23 cm",
+            "is_cabin": true,
+            "warning_msg": "Musi się zmieścić pod poprzedzającym fotelem!"
+        },
+        {
+            "name": "Personal Item", 
+            "cabin_kg": 0, 
+            "checked_kg": 0, 
+            "dims_string": "40x30x15 cm",
+            "is_cabin": true
+        },
+            {
+            "name": "Checked Bag", 
+            "cabin_kg": 0, 
+            "checked_kg": 23, 
+            "is_cabin": false,
+            "warning_msg": "Suma wszystkich wymiarów bagażu (wysokość + szerokość + głębokość) nie może przekroczyć 158 cm!"
+
+        },
+        {
+            "name": "Business Checked Bag", 
+            "cabin_kg": 0, 
+            "checked_kg": 32, 
+            "is_cabin": false,
+            "warning_msg": "Suma wszystkich wymiarów bagażu (wysokość + szerokość + głębokość) nie może przekroczyć 158 cm!"
+
+        }
+        ]
+    },
+    "SK": {
+        "name": "SAS",
+        "tariffs": [
+        {
+            "name": "Underseat Bag", 
+            "cabin_kg": 0, 
+            "checked_kg": 0, 
+            "dims_string": "40x30x15 cm",
+            "is_cabin": true,
+            "warning_msg": "Musi się zmieścić pod poprzedzającym fotelem!"
+        },
+        {
+            "name": "Carry on Bag", 
+            "cabin_kg": 8, 
+            "checked_kg": 0, 
+            "dims_string": "55x40x23 cm",
+            "is_cabin": true
+        },
+        {
+            "name": "Checked Bag", 
+            "cabin_kg": 0, 
+            "checked_kg": 23, 
+            "is_cabin": false,
+            "warning_msg": "Suma wszystkich wymiarów bagażu (wysokość + szerokość + głębokość) nie może przekroczyć 158 cm!"
+
+        },
+        {
+            "name": "Business Checked Bag", 
+            "cabin_kg": 0, 
+            "checked_kg": 32, 
+            "is_cabin": false,
+            "warning_msg": "Suma wszystkich wymiarów bagażu (wysokość + szerokość + głębokość) nie może przekroczyć 158 cm!"
+
+        }
+        ]
+    },
+    "AY": {
+        "name": "Finnair",
+        "tariffs": [
+           {
+            "name": "Underseat Bag", 
+            "cabin_kg": 0, 
+            "checked_kg": 0, 
+            "dims_string": "40x30x15 cm",
+            "is_cabin": true,
+            "warning_msg": "Musi się zmieścić pod poprzedzającym fotelem! Suma mas wszystkich bagaży podręcznych nie może przekroczyć 8 kg (W przypadku klasy business - 12kg)!"
+        },
+        {
+            "name": "Carry on Bag", 
+            "cabin_kg": 0, 
+            "checked_kg": 0, 
+            "dims_string": "55x40x23 cm",
+            "is_cabin": true,
+            "warning_msg": "Musi się zmieścić pod poprzedzającym fotelem! Suma mas wszystkich bagaży podręcznych nie może przekroczyć 8 kg (W przypadku klasy business - 12kg)!"
+        },
+        {
+            "name": "Checked Bag", 
+            "cabin_kg": 0, 
+            "checked_kg": 23, 
+            "dims_string": "90x75x45 cm",
+            "is_cabin": false
+        }
+        
+      ]
+    },
+    "IB": {
+        "name": "Iberia",
+          "tariffs": [
+        {
+            "name": "Hand Baggage", 
+            "cabin_kg": 10, 
+            "checked_kg": 0, 
+            "dims_string": "56x40x25 cm",
+            "is_cabin": true
+        },
+        {
+            "name": "Carry on Bag", 
+            "cabin_kg": 23, 
+            "checked_kg": 0, 
+            "is_cabin": true,
+            "warning_msg": "Suma wszystkich wymiarów bagażu (wysokość + szerokość + głębokość) nie może przekroczyć 158 cm!"
+        },
+        {
+            "name": "Business Hand Baggage", 
+            "cabin_kg": 14, 
+            "checked_kg": 0, 
+            "dims_string": "56x40x25 cm",
+            "is_cabin": true
+        }
+        ]
+    },
+   "TP": {
+        "name": "TAP Air Portugal",
+        "tariffs": [
+              {
+            "name": "Underseat Bag", 
+            "cabin_kg": 10, 
+            "checked_kg": 0, 
+            "dims_string": "55x40x25 cm",
+            "is_cabin": true
+        },
+        {
+            "name": "Personal Item", 
+            "cabin_kg": 2, 
+            "checked_kg": 0, 
+            "dims_string": "40x30x15 cm",
+            "is_cabin": true,
+            "warning_msg": "Musi się zmieścić pod poprzedzającym fotelem!"
+        },
+        {
+            "name": "Special cabin baggage",
+            "cabin_kg": 30,
+            "checked_kg": 0,
+            "is_cabin": true,
+            "warning_msg": "Wymiary max: 155x42x25 cm (na podłodze Albo 110x42x50 cm (na fotelu)."       
+        },
+        {
+            "name": "Checked Bag", 
+            "cabin_kg": 0, 
+            "checked_kg": 23, 
+            "is_cabin": false,
+            "warning_msg": "Suma wszystkich wymiarów bagażu (wysokość + szerokość + głębokość) nie może przekroczyć 158 cm!"
+
+        },
+        {
+            "name": "Top Executive Checked Bag", 
+            "cabin_kg": 0, 
+            "checked_kg": 32, 
+            "is_cabin": false,
+            "warning_msg": "Suma wszystkich wymiarów bagażu (wysokość + szerokość + głębokość) nie może przekroczyć 158 cm!"
+        }
+        
+      ]
+    },
+    "AZ": {
+        "name": "ITA Airways",
+        "tariffs": [
+            { 
+            "name": "Underseat Bag", 
+            "cabin_kg": 8, 
+            "dims_string": "55x40x23 cm",
+            "checked_kg": 0, 
+            "is_cabin": true
+        },
+        {
+            "name": "Personal Item", 
+            "cabin_kg": 0, 
+            "checked_kg": 0, 
+            "dims_string": "40x30x15 cm",
+            "is_cabin": true
+        },
+        {
+            "name": "Checked Bag", 
+            "cabin_kg": 0, 
+            "checked_kg": 23, 
+            "is_cabin": false,
+            "warning_msg": "Suma wszystkich wymiarów bagażu (wysokość + szerokość + głębokość) nie może przekroczyć 158 cm!"
+
+        },
+        {
+            "name": "Business Checked Bag", 
+            "cabin_kg": 0, 
+            "checked_kg": 32, 
+            "is_cabin": false,
+            "warning_msg": "Suma wszystkich wymiarów bagażu (wysokość + szerokość + głębokość) nie może przekroczyć 158 cm!"
+        },
+        {
+            "name": "Musical Instrument",
+            "cabin_kg": 8,
+            "checked_kg": 0,
+            "dims_string": "55x40x23 cm",
+            "is_cabin": true,
+            "warning_msg": "Zastępuje standardowy bagaż podręczny! Musi być w twardym futerale."    
+     
+        }
+    ]
+    },
+    "AA": {
+        "name": "American Airlines",
+        "tariffs": [
+            { 
+            "name": "Carry on Bag", 
+            "cabin_kg": 0, 
+            "dims_string": "56x36x23 cm",
+            "checked_kg": 0, 
+            "is_cabin": true
+        },
+        {
+            "name": "Personal Item", 
+            "cabin_kg": 0, 
+            "checked_kg": 0, 
+            "dims_string": "45x35x20 cm",
+            "is_cabin": true
+        },
+        {
+            "name": "Checked Bag", 
+            "cabin_kg": 0, 
+            "checked_kg": 23, 
+            "is_cabin": false,
+            "warning_msg": "Suma wszystkich wymiarów bagażu (wysokość + szerokość + głębokość) nie może przekroczyć 158 cm!"
+
+        }
+        ]
+    },
+    "DL": {
+        "name": "Delta",
+        "tariffs": [
+            { 
+            "name": "Carry on Bag", 
+            "cabin_kg": 0, 
+            "dims_string": "56x36x23 cm",
+            "checked_kg": 0, 
+            "is_cabin": true
+        },
+        {
+            "name": "Checked Bag", 
+            "cabin_kg": 0, 
+            "checked_kg": 23, 
+            "is_cabin": false,
+            "warning_msg": "Suma wszystkich wymiarów bagażu (wysokość + szerokość + głębokość) nie może przekroczyć 158 cm!"
+
+        }
+        ]
+    },
+    "UA": {
+        "name": "United",
+        "tariffs": [
+           { 
+            "name": "Carry on Bag", 
+            "cabin_kg": 0, 
+            "dims_string": "56x35x23 cm",
+            "checked_kg": 0, 
+            "is_cabin": true,
+            "warning_msg": "Przy mierzeniu rozmiaru bagażu pod uwagę brana jest również rączka i kółka!"
+        },
+        { 
+            "name": "Personal Item", 
+            "cabin_kg": 0, 
+            "dims_string": "43x25x22 cm",
+            "checked_kg": 0, 
+            "is_cabin": true,
+            "warning_msg": "Musi się zmieścić pod poprzedzającym fotelem!"
+        },
+        {
+            "name": "Checked Bag", 
+            "cabin_kg": 0, 
+            "checked_kg": 23, 
+            "is_cabin": false,
+            "warning_msg": "Suma wszystkich wymiarów bagażu (wysokość + szerokość + głębokość) nie może przekroczyć 157 cm!"
+
+        } 
+        ]
+    },
+    "DY": {
+        "name": "Norwegian",
+        "tariffs": [
+         { 
+            "name": "Underseat Bag", 
+            "cabin_kg": 0, 
+            "dims_string": "30x40x20 cm",
+            "checked_kg": 0, 
+            "is_cabin": true,
+            "warning_msg": "Torba musi zmieścić się pod fotelem! Suma wag wszystkich bagaży podręcznych nie może przekroczyć 10kg (15 kg w przypadku taryfy Flex) !"
+        },
+        { 
+            "name": "Carry on Bag", 
+            "cabin_kg": 0, 
+            "dims_string": "55x40x23 cm",
+            "checked_kg": 0, 
+            "is_cabin": true,
+            "warning_msg": "Torba musi zmieścić się w schowku nad głową! Suma wag wszystkich bagaży podręcznych nie może przekroczyć 10kg (15 kg w przypadku taryfy Flex)!"
+        },
+        {
+            "name": "Checked Bag", 
+            "cabin_kg": 0, 
+            "checked_kg": 23, 
+            "is_cabin": false
+        }    
+        ]
+    }
+}
