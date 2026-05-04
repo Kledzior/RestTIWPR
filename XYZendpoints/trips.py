@@ -18,7 +18,7 @@ router = APIRouter(
 )
 
 # 2. ZMIANA: Zagnieżdżenie pod trips
-@router.post("/trips/{trip_id}/packing-lists", response_model=schemas.PackingList)
+@router.post("/{trip_id}/packing-lists", response_model=schemas.PackingList)
 def create_packing_list(
     trip_id: int,
     list_data: schemas.PackingListCreate,
@@ -60,7 +60,7 @@ def get_trip_data(
 
 
 # DODATEK 1: Pobieranie wszystkich list dla konkretnej wycieczki (zgodne z tabelką: GET /trips/{trip_id}/packing-lists)
-@router.get("/trips/{trip_id}/packing-lists", response_model=List[schemas.PackingList])
+@router.get("/{trip_id}/packing-lists", response_model=List[schemas.PackingList])
 def get_packing_lists_for_trip(
     trip_id: int,
     db: Session = Depends(get_db),
