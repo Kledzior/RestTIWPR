@@ -11,7 +11,7 @@ router = APIRouter(
     tags=["Locations"]
 )
 
-@router.get("/search", response_model=List[schemas.LocationSuggestion])
+@router.get("", response_model=List[schemas.LocationSuggestion])
 async def search_locations(
     q: str = Query(..., min_length=3, description="Fragment nazwy miejsca do wyszukania"),
     current_user: models.User = Depends(get_current_user)
