@@ -68,7 +68,7 @@ def get_cached_cdc_advice(country_slug: str) -> Optional[HealthSource]:
         last_updated=raw_data.get("last_updated", "N/A")
     )
 
-@router.get("/search", response_model=TravelHealthResponse)
+@router.get("", response_model=TravelHealthResponse)
 async def search_health_advice(
     q: str = Query(..., min_length=2, description="Nazwa kraju")
 ):

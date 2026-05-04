@@ -47,7 +47,7 @@ async def lifespan_fun(app: FastAPI):
 
 app = FastAPI(
     title="Aplikacja Podróżnicza API",
-    description="Backend dla inżynierskiej aplikacji mobilnej wspierającej pakowanie.",
+    description="Api do wspierania podróżnika w pakowaniu bagażu.",
     version="1.0.0",
     lifespan=lifespan_fun
 )

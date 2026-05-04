@@ -13,7 +13,7 @@ router = APIRouter(
 )
 
 
-@router.post("/create_user/", response_model=schemas.User)
+@router.post("", response_model=schemas.User)
 def create_user(
     uzytkownik: schemas.UserCreate, 
     db: Session = Depends(get_db)
@@ -43,8 +43,16 @@ def create_user(
  
     return new_user
 
-@router.get("/me", response_model=schemas.User)
-def read_users_me(
+@router.get("/{user_id}", response_model=schemas.User)
+def read_user(
+    user_id: int, # <--- Dodajemy user_id z URL
     current_user: models.User = Depends(get_current_user)
 ):
+    # Zabezpieczenie: czy ID z URL zgadza się z ID z tokena?
+    if user_id != current_user.id:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN, 
+            detail="Brak uprawnień. Możesz pobrać tylko własny profil."
+        )
+        
     return current_user
