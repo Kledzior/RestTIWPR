@@ -17,6 +17,24 @@ router = APIRouter(
     tags=["Trips"]
 )
 
+# 2. ZMIANA: Zagnieżdżenie pod trips
+@router.post("/{trip_id}/packing-lists", response_model=schemas.PackingList)
+def create_packing_list(
+    trip_id: int,
+    list_data: schemas.PackingListCreate,
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(get_current_user)
+):
+    get_trip_data(trip_id, current_user, db)
+    
+    new_list = models.PackingList(
+        name=list_data.name,
+        trip_id=trip_id
+    )
+    db.add(new_list)
+    db.commit()
+    db.refresh(new_list)
+    return new_list
 
 def get_trip_data(
     trip_id: int,
@@ -39,6 +57,20 @@ def get_trip_data(
         
     return trip
 
+
+
+# DODATEK 1: Pobieranie wszystkich list dla konkretnej wycieczki (zgodne z tabelką: GET /trips/{trip_id}/packing-lists)
+@router.get("/{trip_id}/packing-lists", response_model=List[schemas.PackingList])
+def get_packing_lists_for_trip(
+    trip_id: int,
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(get_current_user)
+):
+    # Sprawdzamy czy wycieczka istnieje i należy do usera
+    get_trip_data(trip_id, current_user, db)
+    
+    lists = db.query(models.PackingList).filter(models.PackingList.trip_id == trip_id).all()
+    return lists
 
 @router.post("/", response_model=schemas.Trip)
 def create_trip_for_user(
