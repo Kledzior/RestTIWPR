@@ -1,11 +1,12 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
+from typing import List
+
 import models
 import schemas
 from database import get_db
 from auth import get_current_user
 from XYZendpoints.trips import get_trip_data
-from typing import List
 
 # 1. ZMIANA: Usuwamy globalny prefix, żeby móc używać różnych baz w ścieżkach
 router = APIRouter(
