@@ -18,6 +18,15 @@ router = APIRouter(
     tags=["Trips"]
 )
 
+def check_lost_update(db_trip, if_match: str):
+    if if_match:
+        # ETag to po prostu ID
+        if if_match != str(db_trip.id):
+            raise HTTPException(
+                status_code=status.HTTP_412_PRECONDITION_FAILED,
+                detail="Precondition Failed: Zasób został zmodyfikowany przez kogoś innego."
+            )
+        
 # 2. ZMIANA: Zagnieżdżenie pod trips
 @router.post("/{trip_id}/packing-lists", response_model=schemas.PackingList)
 def create_packing_list(
@@ -201,9 +210,12 @@ def update_trip(
     trip_id: int,
     trip_update: schemas.TripUpdate,
     db: Session = Depends(get_db),
-    current_user: models.User = Depends(get_current_user)
+    current_user: models.User = Depends(get_current_user),
+    if_match: str = Header(None, alias="If-Match")
 ):
     db_trip = get_trip_data(trip_id, current_user, db)
+
+    check_lost_update(db_trip, if_match)
 
     temp_start = trip_update.start_date if trip_update.start_date else db_trip.start_date
     temp_end = trip_update.end_date if trip_update.end_date else db_trip.end_date
@@ -265,3 +277,30 @@ async def get_weather_for_trip(
         summary=summary,
         daily_forecast=weather_days
     )
+
+
+@router.put("/{trip_id}", response_model=schemas.Trip)
+def replace_trip(
+    trip_id: int,
+    trip_update: schemas.TripUpdate,
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(get_current_user),
+    if_match: str = Header(None, alias="If-Match")
+):
+    db_trip = get_trip_data(trip_id, current_user, db)
+    
+    check_lost_update(db_trip, if_match)
+
+    update_data = trip_update.model_dump()
+    
+    for key, value in update_data.items():
+        setattr(db_trip, key, value)
+    
+    valid_start, valid_end = validate_trip_dates(db_trip.start_date, db_trip.end_date)
+    db_trip.start_date = valid_start
+    db_trip.end_date = valid_end
+
+    db.add(db_trip)
+    db.commit()
+    db.refresh(db_trip)
+    return db_trip
