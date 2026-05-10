@@ -18,13 +18,19 @@ router = APIRouter(
     tags=["Trips"]
 )
 
+def generate_etag(db_trip) -> str:
+    if db_trip.updated_at:
+        return str(db_trip.updated_at.timestamp())
+    return "0"
+
 def check_lost_update(db_trip, if_match: str):
     if if_match:
-        # ETag to po prostu ID
-        if if_match != str(db_trip.id):
+        current_etag = generate_etag(db_trip)
+        
+        if if_match != current_etag:
             raise HTTPException(
                 status_code=status.HTTP_412_PRECONDITION_FAILED,
-                detail="Precondition Failed: Zasób został zmodyfikowany przez kogoś innego."
+                detail=f"Precondition Failed: Zasób został zmodyfikowany przez kogoś innego. Twój ETag nie pasuje do obecnego ({current_etag})."
             )
         
 # 2. ZMIANA: Zagnieżdżenie pod trips
@@ -285,8 +291,7 @@ def replace_trip(
     trip_update: schemas.TripUpdate,
     db: Session = Depends(get_db),
     current_user: models.User = Depends(get_current_user),
-    if_match: str = Header(None, alias="If-Match")
-):
+    if_match: str = Header(None, alias="If-Match", description="Aktualny ETag (timestamp z updated_at)")):
     db_trip = get_trip_data(trip_id, current_user, db)
     
     check_lost_update(db_trip, if_match)
