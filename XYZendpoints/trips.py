@@ -108,15 +108,28 @@ def create_trip_for_user(
         for old_list in old_lists:
             new_list = models.PackingList(name=old_list.name, trip_id=new_trip.id)
             db.add(new_list)
-        db.commit()
+            db.flush()
+            old_items = db.query(models.PackingItem).filter(models.PackingItem.packing_list_id == old_list.id).all()
+            for old_item in old_items:
+                # Kopiujemy przedmioty (resetując status spakowania)
+                new_item = models.PackingItem(
+                    name=old_item.name,
+                    category=old_item.category,
+                    count=old_item.count,
+                    weight_kg=old_item.weight_kg,
+                    is_packed=False, # Nowa wycieczka = niespakowane przedmioty!
+                    packing_list_id=new_list.id,
+                    library_item_id=old_item.library_item_id
+                )
+                db.add(new_item)
     else:
         default_list = models.PackingList(
             name="Main Luggage",
             trip_id=new_trip.id
         )
         db.add(default_list)
-        db.commit()
     
+    db.commit()
     db.refresh(new_trip) 
     return new_trip
 
