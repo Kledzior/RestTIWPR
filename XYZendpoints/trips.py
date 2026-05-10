@@ -11,6 +11,7 @@ from datetime import datetime, timezone
 from XYZendpoints.validators import validate_trip_dates
 import weather_client 
 
+IDEMPOTENCY_CACHE = {}
 
 router = APIRouter(
     prefix="/trips",
@@ -80,8 +81,11 @@ def create_trip_for_user(
     idempotency_key: str = Header(None, alias="Idempotency-Key") # POST once exactly
 ):
     if idempotency_key:
-        print(f"Otrzymano klucz idempotencji: {idempotency_key} - zapobieganie duplikatom")
-    
+        if idempotency_key in IDEMPOTENCY_CACHE:
+            print(f"Złapano duplikat! Zwracam wycieczkę dla klucza: {idempotency_key}")
+            cached_trip_id = IDEMPOTENCY_CACHE[idempotency_key]
+            return get_trip_data(cached_trip_id, current_user, db)
+        print(f"Nowy klucz idepotencji w cache: {idempotency_key}")
     valid_start, valid_end = validate_trip_dates(trip.start_date, trip.end_date)
 
     
