@@ -135,6 +135,9 @@ def create_trip_for_user(
     
     db.commit()
     db.refresh(new_trip) 
+    if idempotency_key:
+        IDEMPOTENCY_CACHE[idempotency_key] = new_trip.id
+        print(f"Zapisano klucz {idempotency_key} do cache dla wycieczki {new_trip.id}")
     return new_trip
 
 @router.delete("/{trip_id}", status_code=status.HTTP_204_NO_CONTENT)
