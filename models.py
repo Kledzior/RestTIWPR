@@ -67,7 +67,7 @@ class Trip(Base):
     airline = relationship("Airline", back_populates="trips")
     
     packing_lists = relationship("PackingList", back_populates="trip", cascade="all, delete-orphan")
-
+    updated_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
 
 class PackingList(Base):
     __tablename__ = "packing_lists"
