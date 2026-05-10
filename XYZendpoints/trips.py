@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, status, Query
+from fastapi import APIRouter, Depends, HTTPException, status, Query, Header
 from sqlalchemy.orm import Session
 from datetime import datetime, timezone
 from typing import List
@@ -76,13 +76,19 @@ def get_packing_lists_for_trip(
 def create_trip_for_user(
     trip: schemas.TripCreate,
     db: Session = Depends(get_db),
-    current_user: models.User = Depends(get_current_user)
+    current_user: models.User = Depends(get_current_user),
+    idempotency_key: str = Header(None, alias="Idempotency-Key") # POST once exactly
 ):
+    if idempotency_key:
+        print(f"Otrzymano klucz idempotencji: {idempotency_key} - zapobieganie duplikatom")
     
     valid_start, valid_end = validate_trip_dates(trip.start_date, trip.end_date)
 
+    
+    dump_data = trip.model_dump(exclude={'source_trip_id'} if hasattr(trip, 'source_trip_id') else set())
+    
     new_trip = models.Trip(
-    **trip.model_dump(),
+    **dump_data,
     user_id=current_user.id
     )
 
@@ -94,14 +100,24 @@ def create_trip_for_user(
     db.commit()
     db.refresh(new_trip)
 
-    default_list = models.PackingList(
-        name="Main Luggage",
-        trip_id=new_trip.id
-    )
-    db.add(default_list)
-    db.commit()
+    # Logika Klonowania (Zasób-kontroler)
+    if hasattr(trip, 'source_trip_id') and trip.source_trip_id is not None:
+        source_trip = get_trip_data(trip.source_trip_id, current_user, db)
+        print(f"Klonowanie wycieczki ID: {source_trip.id}")
+        old_lists = db.query(models.PackingList).filter(models.PackingList.trip_id == source_trip.id).all()
+        for old_list in old_lists:
+            new_list = models.PackingList(name=old_list.name, trip_id=new_trip.id)
+            db.add(new_list)
+        db.commit()
+    else:
+        default_list = models.PackingList(
+            name="Main Luggage",
+            trip_id=new_trip.id
+        )
+        db.add(default_list)
+        db.commit()
+    
     db.refresh(new_trip) 
-
     return new_trip
 
 @router.delete("/{trip_id}", status_code=status.HTTP_204_NO_CONTENT)

@@ -102,7 +102,7 @@ class TripCreate(TripLocationBase):
     end_date: datetime
     airline_id: Optional[int] = None
     travel_with_pet: bool = Field(default=False)
-
+    source_trip_id: Optional[int] = None
 
 
 class TripUpdate(BaseModel):
