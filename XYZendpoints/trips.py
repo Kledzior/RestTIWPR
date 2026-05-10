@@ -84,6 +84,13 @@ def create_trip_for_user(
         if idempotency_key in IDEMPOTENCY_CACHE:
             print(f"Złapano duplikat! Zwracam wycieczkę dla klucza: {idempotency_key}")
             cached_trip_id = IDEMPOTENCY_CACHE[idempotency_key]
+            # Sprawdzenie, czy wycieczka nie została już usunięta
+            existing_trip = db.query(models.Trip).filter(models.Trip.id == cached_trip_id).first()
+            if not existing_trip:
+                raise HTTPException(
+                    status_code=status.HTTP_410_GONE, # 410 Gone - idealny kod HTTP dla usuniętych zasobów!
+                    detail="To żądanie (POST once exactly) zostało już przetworzone, ale utworzona wycieczka została w międzyczasie usunięta. (Ten idepodency key jest już w cache)"
+                )
             return get_trip_data(cached_trip_id, current_user, db)
         print(f"Nowy klucz idepotencji w cache: {idempotency_key}")
     valid_start, valid_end = validate_trip_dates(trip.start_date, trip.end_date)
