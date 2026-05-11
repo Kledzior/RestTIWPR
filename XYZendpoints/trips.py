@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, status, Query, Header
+from fastapi import APIRouter, Depends, HTTPException, status, Query, Header, Response
 from sqlalchemy.orm import Session
 from datetime import datetime, timezone
 from typing import List
@@ -24,14 +24,19 @@ def generate_etag(db_trip) -> str:
     return "0"
 
 def check_lost_update(db_trip, if_match: str):
-    if if_match:
-        current_etag = generate_etag(db_trip)
+    if not if_match:
+        raise HTTPException(
+            status_code=status.HTTP_428_PRECONDITION_REQUIRED,
+            detail="Precondition Required: Wymagany nagłówek If-Match (ETag) w celu ochrony przed nadpisaniem (Lost Update)."
+        )
         
-        if if_match != current_etag:
-            raise HTTPException(
-                status_code=status.HTTP_412_PRECONDITION_FAILED,
-                detail=f"Precondition Failed: Zasób został zmodyfikowany przez kogoś innego. Twój ETag nie pasuje do obecnego ({current_etag})."
-            )
+    current_etag = generate_etag(db_trip)
+    
+    if if_match != current_etag:
+        raise HTTPException(
+            status_code=status.HTTP_412_PRECONDITION_FAILED,
+            detail=f"Precondition Failed: Zasób został zmodyfikowany przez kogoś innego. Twój ETag nie pasuje do obecnego ({current_etag})."
+        )
         
 # 2. ZMIANA: Zagnieżdżenie pod trips
 @router.post("/{trip_id}/packing-lists", response_model=schemas.PackingList)
@@ -203,11 +208,13 @@ def get_users_trips(
 @router.get("/{trip_id}", response_model=schemas.Trip)
 def get_trip_details(
     trip_id: int,
+    response: Response,
     db: Session = Depends(get_db),
     current_user: models.User = Depends(get_current_user)
 ):
     
     trip = get_trip_data(trip_id, current_user, db)
+    response.headers["ETag"] = generate_etag(trip)
     return trip
 
 
@@ -217,7 +224,7 @@ def update_trip(
     trip_update: schemas.TripUpdate,
     db: Session = Depends(get_db),
     current_user: models.User = Depends(get_current_user),
-    if_match: str = Header(None, alias="If-Match")
+    if_match: str = Header(..., alias="If-Match")
 ):
     db_trip = get_trip_data(trip_id, current_user, db)
 
@@ -291,7 +298,7 @@ def replace_trip(
     trip_update: schemas.TripUpdate,
     db: Session = Depends(get_db),
     current_user: models.User = Depends(get_current_user),
-    if_match: str = Header(None, alias="If-Match", description="Aktualny ETag (timestamp z updated_at)")):
+    if_match: str = Header(..., alias="If-Match", description="Aktualny ETag (timestamp z updated_at)")):
     db_trip = get_trip_data(trip_id, current_user, db)
     
     check_lost_update(db_trip, if_match)
