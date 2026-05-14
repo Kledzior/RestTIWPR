@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status, Query, Header, Response
 from sqlalchemy.orm import Session
 from datetime import datetime, timezone
-from typing import List
+from typing import List, Optional
 
 import models
 import schemas
@@ -38,11 +38,11 @@ def check_lost_update(db_trip, if_match: str):
             detail=f"Precondition Failed: Zasób został zmodyfikowany przez kogoś innego. Twój ETag nie pasuje do obecnego ({current_etag})."
         )
         
-# 2. ZMIANA: Zagnieżdżenie pod trips
-@router.post("/{trip_id}/packing-lists", response_model=schemas.PackingList)
+@router.post("/{trip_id}/packing-lists", response_model=schemas.PackingList, status_code=status.HTTP_201_CREATED)
 def create_packing_list(
     trip_id: int,
     list_data: schemas.PackingListCreate,
+    response: Response,
     db: Session = Depends(get_db),
     current_user: models.User = Depends(get_current_user)
 ):
@@ -55,6 +55,7 @@ def create_packing_list(
     db.add(new_list)
     db.commit()
     db.refresh(new_list)
+    response.headers["Location"] = f"/packing-lists/{new_list.id}"
     return new_list
 
 def get_trip_data(
@@ -80,37 +81,37 @@ def get_trip_data(
 
 
 
-# DODATEK 1: Pobieranie wszystkich list dla konkretnej wycieczki (zgodne z tabelką: GET /trips/{trip_id}/packing-lists)
 @router.get("/{trip_id}/packing-lists", response_model=List[schemas.PackingList])
 def get_packing_lists_for_trip(
     trip_id: int,
     db: Session = Depends(get_db),
     current_user: models.User = Depends(get_current_user)
 ):
-    # Sprawdzamy czy wycieczka istnieje i należy do usera
     get_trip_data(trip_id, current_user, db)
     
     lists = db.query(models.PackingList).filter(models.PackingList.trip_id == trip_id).all()
     return lists
 
-@router.post("/", response_model=schemas.Trip)
+@router.post("/", response_model=schemas.Trip, status_code=status.HTTP_201_CREATED)
 def create_trip_for_user(
     trip: schemas.TripCreate,
+    response: Response,
     db: Session = Depends(get_db),
     current_user: models.User = Depends(get_current_user),
-    idempotency_key: str = Header(None, alias="Idempotency-Key") # POST once exactly
+    idempotency_key: str = Header(None, alias="Idempotency-Key") 
 ):
     if idempotency_key:
         if idempotency_key in IDEMPOTENCY_CACHE:
             print(f"Złapano duplikat! Zwracam wycieczkę dla klucza: {idempotency_key}")
             cached_trip_id = IDEMPOTENCY_CACHE[idempotency_key]
-            # Sprawdzenie, czy wycieczka nie została już usunięta
+            
             existing_trip = db.query(models.Trip).filter(models.Trip.id == cached_trip_id).first()
             if not existing_trip:
                 raise HTTPException(
-                    status_code=status.HTTP_410_GONE, # 410 Gone - idealny kod HTTP dla usuniętych zasobów!
+                    status_code=status.HTTP_410_GONE, 
                     detail="To żądanie (POST once exactly) zostało już przetworzone, ale utworzona wycieczka została w międzyczasie usunięta. (Ten idepodency key jest już w cache)"
                 )
+            response.headers["Location"] = f"/trips/{cached_trip_id}"
             return get_trip_data(cached_trip_id, current_user, db)
         print(f"Nowy klucz idepotencji w cache: {idempotency_key}")
     valid_start, valid_end = validate_trip_dates(trip.start_date, trip.end_date)
@@ -131,7 +132,7 @@ def create_trip_for_user(
     db.commit()
     db.refresh(new_trip)
 
-    # Logika Klonowania (Zasób-kontroler)
+    # Kontroler
     if hasattr(trip, 'source_trip_id') and trip.source_trip_id is not None:
         source_trip = get_trip_data(trip.source_trip_id, current_user, db)
         print(f"Klonowanie wycieczki ID: {source_trip.id}")
@@ -142,13 +143,12 @@ def create_trip_for_user(
             db.flush()
             old_items = db.query(models.PackingItem).filter(models.PackingItem.packing_list_id == old_list.id).all()
             for old_item in old_items:
-                # Kopiujemy przedmioty (resetując status spakowania)
                 new_item = models.PackingItem(
                     name=old_item.name,
                     category=old_item.category,
                     count=old_item.count,
                     weight_kg=old_item.weight_kg,
-                    is_packed=False, # Nowa wycieczka = niespakowane przedmioty!
+                    is_packed=False,
                     packing_list_id=new_list.id,
                     library_item_id=old_item.library_item_id
                 )
@@ -165,6 +165,7 @@ def create_trip_for_user(
     if idempotency_key:
         IDEMPOTENCY_CACHE[idempotency_key] = new_trip.id
         print(f"Zapisano klucz {idempotency_key} do cache dla wycieczki {new_trip.id}")
+    response.headers["Location"] = f"/trips/{new_trip.id}"
     return new_trip
 
 @router.delete("/{trip_id}", status_code=status.HTTP_204_NO_CONTENT)
@@ -224,7 +225,7 @@ def update_trip(
     trip_update: schemas.TripUpdate,
     db: Session = Depends(get_db),
     current_user: models.User = Depends(get_current_user),
-    if_match: str = Header(..., alias="If-Match")
+    if_match: str = Header(None, alias="If-Match")
 ):
     db_trip = get_trip_data(trip_id, current_user, db)
 
@@ -298,7 +299,7 @@ def replace_trip(
     trip_update: schemas.TripUpdate,
     db: Session = Depends(get_db),
     current_user: models.User = Depends(get_current_user),
-    if_match: str = Header(..., alias="If-Match", description="Aktualny ETag (timestamp z updated_at)")):
+    if_match: str = Header(None, alias="If-Match", description="Aktualny ETag (timestamp z updated_at)")):
     db_trip = get_trip_data(trip_id, current_user, db)
     
     check_lost_update(db_trip, if_match)

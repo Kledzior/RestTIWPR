@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, Response
 from sqlalchemy.orm import Session
 
 import models
@@ -13,9 +13,10 @@ router = APIRouter(
 )
 
 
-@router.post("", response_model=schemas.User)
+@router.post("", response_model=schemas.User, status_code=status.HTTP_201_CREATED)
 def create_user(
     uzytkownik: schemas.UserCreate, 
+    response: Response,
     db: Session = Depends(get_db)
 ):
     
@@ -40,15 +41,15 @@ def create_user(
     db.commit()
     
     db.refresh(new_user)
+    response.headers["Location"] = f"/users/{new_user.id}"
  
     return new_user
 
 @router.get("/{user_id}", response_model=schemas.User)
 def read_user(
-    user_id: int, # <--- Dodajemy user_id z URL
+    user_id: int,
     current_user: models.User = Depends(get_current_user)
 ):
-    # Zabezpieczenie: czy ID z URL zgadza się z ID z tokena?
     if user_id != current_user.id:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN, 
