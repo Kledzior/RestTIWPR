@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, Response
 from sqlalchemy.orm import Session
 from typing import List
 
@@ -8,7 +8,6 @@ from database import get_db
 from auth import get_current_user
 from XYZendpoints.trips import get_trip_data
 
-# USUNIĘTY PREFIX - ścieżki definiujemy w całości w dekoratorach
 router = APIRouter(
     tags=["Packing Lists & Items"]
 )
@@ -28,11 +27,11 @@ def get_item_data(
         
     return item
 
-# 1. Tworzenie listy pod konkretną wycieczkę
-@router.post("/trips/{trip_id}/packing-lists", response_model=schemas.PackingList)
+@router.post("/trips/{trip_id}/packing-lists", response_model=schemas.PackingList, status_code=status.HTTP_201_CREATED))
 def create_packing_list(
     trip_id: int,
     list_data: schemas.PackingListCreate,
+    response: Response,
     db: Session = Depends(get_db),
     current_user: models.User = Depends(get_current_user)
 ):
@@ -45,9 +44,10 @@ def create_packing_list(
     db.add(new_list)
     db.commit()
     db.refresh(new_list)
+    response.headers["Location"] = f"/packing-lists/{new_list.id}"
+
     return new_list
 
-# 2. Pobieranie list przypisanych do wycieczki (tej funkcji brakowało po konflikcie GITA)
 @router.get("/trips/{trip_id}/packing-lists", response_model=List[schemas.PackingList])
 def get_packing_lists_for_trip(
     trip_id: int,
@@ -58,7 +58,6 @@ def get_packing_lists_for_trip(
     lists = db.query(models.PackingList).filter(models.PackingList.trip_id == trip_id).all()
     return lists
 
-# 3. Pobieranie szczegółów konkretnej listy
 @router.get("/packing-lists/{list_id}", response_model=schemas.PackingList)
 def get_single_packing_list(
     list_id: int,
@@ -75,7 +74,6 @@ def get_single_packing_list(
         
     return packing_list
 
-# 4. Usuwanie listy
 @router.delete("/packing-lists/{list_id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_packing_list(
     list_id: int,
@@ -94,11 +92,11 @@ def delete_packing_list(
     db.commit()
     return
 
-# 5. Dodawanie przedmiotu do listy
-@router.post("/packing-lists/{list_id}/items", response_model=schemas.PackingItem)
+@router.post("/packing-lists/{list_id}/items", response_model=schemas.PackingItem, status_code=status.HTTP_201_CREATED))
 def add_item_to_list(
     list_id: int,
     item: schemas.PackingItemCreate,
+    response: Response,
     db: Session = Depends(get_db),
     current_user: models.User = Depends(get_current_user)
 ):
@@ -114,9 +112,9 @@ def add_item_to_list(
     db.add(new_item)
     db.commit()
     db.refresh(new_item)
+    response.headers["Location"] = f"/items/{new_item.id}"
     return new_item
 
-# 6. Pobieranie wszystkich przedmiotów z danej listy
 @router.get("/packing-lists/{list_id}/items", response_model=List[schemas.PackingItem])
 def get_items_for_list(
     list_id: int,
@@ -134,7 +132,6 @@ def get_items_for_list(
     items = db.query(models.PackingItem).filter(models.PackingItem.packing_list_id == list_id).all()
     return items
 
-# 7. Edycja przedmiotu
 @router.patch("/items/{item_id}", response_model=schemas.PackingItem)
 def update_item(
     item_id: int,
@@ -152,7 +149,6 @@ def update_item(
     db.refresh(db_item)
     return db_item
 
-# 8. Usuwanie przedmiotu
 @router.delete("/items/{item_id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_item(
     item_id: int,
