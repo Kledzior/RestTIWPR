@@ -27,7 +27,7 @@ def get_item_data(
         
     return item
 
-@router.post("/trips/{trip_id}/packing-lists", response_model=schemas.PackingList, status_code=status.HTTP_201_CREATED))
+@router.post("/trips/{trip_id}/packing-lists", response_model=schemas.PackingList, status_code=status.HTTP_201_CREATED)
 def create_packing_list(
     trip_id: int,
     list_data: schemas.PackingListCreate,
@@ -92,7 +92,7 @@ def delete_packing_list(
     db.commit()
     return
 
-@router.post("/packing-lists/{list_id}/items", response_model=schemas.PackingItem, status_code=status.HTTP_201_CREATED))
+@router.post("/packing-lists/{list_id}/items", response_model=schemas.PackingItem, status_code=status.HTTP_201_CREATED)
 def add_item_to_list(
     list_id: int,
     item: schemas.PackingItemCreate,
